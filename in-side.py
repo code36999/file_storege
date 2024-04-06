@@ -1,14 +1,19 @@
+import os
 import discord
 from discord.ext import commands
 import subprocess as sp
-import os ,time
+import time
 from discord import message
 from discord import user
 import cv2
 
+# Retrieve bot token from environment variable
+bot_token = os.getenv('DISCORD_BOT_TOKEN')
+if bot_token is None:
+    print("Error: Discord bot token not found. Make sure to set DISCORD_BOT_TOKEN environment variable.")
+    exit(1)
 
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
-
 
 @bot.event
 async def on_ready():
@@ -19,7 +24,6 @@ async def on_ready():
         await channel.send(status + " is online")
 
 #-------------------------------------------
-
 
 def capture_image():
     cap = cv2.VideoCapture(0)
@@ -44,7 +48,6 @@ async def menu(ctx):
     linux_command # <- for run shell command ex ls #
     """
     await ctx.send(help_message)
-
 
 @bot.event
 async def on_message(message):
@@ -87,7 +90,6 @@ async def on_message(message):
         await channel.send(status)
     await bot.process_commands(message)
 
-
 #------------------------------------------------------
 
-bot.run('MTIyMzU4MDcyNTUzNDc4OTY2Mw.G3h7hR.Cl3l0EQ_wzGrDtDPs0mt2p78a5L1r6qK5JGZhU')
+bot.run(bot_token)
