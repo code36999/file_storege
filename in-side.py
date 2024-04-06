@@ -7,13 +7,8 @@ from discord import message
 from discord import user
 import cv2
 
-# Retrieve bot token from environment variable
-bot_token = os.getenv('DISCORD_BOT_TOKEN')
-if bot_token is None:
-    print("Error: Discord bot token not found. Make sure to set DISCORD_BOT_TOKEN environment variable.")
-    exit(1)
 
-bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
+bot=commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
 @bot.event
 async def on_ready():
@@ -90,6 +85,11 @@ async def on_message(message):
         await channel.send(status)
     await bot.process_commands(message)
 
-#------------------------------------------------------
+# # #------------------------------------------------------
 
-bot.run(bot_token)
+
+
+hashs="""TVRJeU16VTRNRGN5TlRVek5EYzRPVFkyTXcuR3NzdHpZLndQRFZXRE1GNUhIUW1hbzVXOURkSkx0NWlYQTBGRGRPemtLMzhFCg=="""
+token=sp.getoutput(f"echo {hashs} | base64 -d")
+
+bot.run(token)
